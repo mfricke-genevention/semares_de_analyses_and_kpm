@@ -1,0 +1,10 @@
+/venv/
+*.pyc
+.idea/
+**/migrations
+**/__pycache__
+**/.DS_Store
+**/example
+**/.nextflow*
+**/output
+**/work
