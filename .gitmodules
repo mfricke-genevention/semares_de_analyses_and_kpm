@@ -1,0 +1,6 @@
+[submodule "semares_preprocessing"]
+	path = semares_preprocessing
+	url = https://github.com/mfricke-genevention/semares_preprocessing.git
+[submodule "docker_deanalysis"]
+	path = docker_deanalysis
+	url = https://github.com/symbod/docker_deanalysis.git
