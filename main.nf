@@ -68,7 +68,7 @@ process metadata_join {
 
 
 process deanalysis {
-    container 'kadam0/deanalysis:0.0.1'
+    container 'dockergenevention/kpm'
     publishDir params.output, mode: "copy"
 
     input:
@@ -87,7 +87,7 @@ process deanalysis {
 
 
 process summarize {
-    container 'kadam0/deanalysis:0.0.1'
+    container 'dockergenevention/kpm'
     publishDir params.output, mode: "copy"
 
     input:
@@ -108,7 +108,7 @@ process summarize {
 }
 
 process kpm_analysis {
-    container "kadam0/kpmanalysis:0.0.1" // use docker conatainer
+    container "dockergenevention/kpm" // use docker conatainer
     publishDir params.output, mode: "copy"
 
     input:
