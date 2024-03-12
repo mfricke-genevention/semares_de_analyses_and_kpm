@@ -6,3 +6,6 @@
 	path = docker_deanalysis
 	branch = main
 	url = https://github.com/symbod/docker_deanalysis.git
+[submodule "docker_kpm"]
+	path = docker_kpm
+	url = https://github.com/symbod/docker_kpm
