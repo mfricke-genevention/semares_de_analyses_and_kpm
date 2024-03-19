@@ -1,9 +1,9 @@
 {
     "output": {
         "file_name": "data.tsv",
-        "sep": "\t",
+        "sep": ",",
         "quotechar": "",
-        "path": "./output/"
+        "path": "./transformed_input/"
     },
     "input": {
         "sep": "\t",

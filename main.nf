@@ -40,7 +40,7 @@ process file_join {
     val file_path
 
     output:
-    path "output/data.tsv"
+    path "transformed_input/data.tsv"
 
     """
     python $script -m $metadata -c $config -f $file_channels -p $file_path
@@ -58,7 +58,7 @@ process metadata_join {
     val file_path
 
     output:
-    path "output/metadata.tsv"
+    path "transformed_input/metadata.tsv"
 
     """
     python $script -m $metadata -c $config -p $file_path
@@ -68,7 +68,7 @@ process metadata_join {
 
 
 process deanalysis {
-    container 'dockergenevention/kpm'
+    container 'kadam0/deanalysis:0.0.2'
     publishDir params.output, mode: "copy"
 
     input:
@@ -87,7 +87,7 @@ process deanalysis {
 
 
 process summarize {
-    container 'dockergenevention/kpm'
+    container 'kadam0/kpmanalysis:0.0.2'
     publishDir params.output, mode: "copy"
 
     input:
@@ -108,7 +108,7 @@ process summarize {
 }
 
 process kpm_analysis {
-    container "dockergenevention/kpm" // use docker conatainer
+    container "kadam0/kpmanalysis:0.0.2" // use docker conatainer
     publishDir params.output, mode: "copy"
 
     input:
@@ -123,18 +123,18 @@ process kpm_analysis {
     val alpha
 
     output:
-    path "*"
+    path("kpm_out", type:"dir")
 
     """
-    Rscript $kpm_script --meta_file ${meta_file} --count_file ${count_file} --network_file ${network_file} --out_dir ./ --logFC ${logFC} --logFC_up ${logFC_up} --logFC_down ${logFC_down} --p_adj ${p_adj} --alpha ${alpha}
+    Rscript $kpm_script --meta_file ${meta_file} --count_file ${count_file} --network_file ${network_file} --out_dir ./kpm_out --logFC ${logFC} --logFC_up ${logFC_up} --logFC_down ${logFC_down} --p_adj ${p_adj} --alpha ${alpha}
     """
 }
 
-// summarize(summarizer_script, deanalysis.out, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
-// deanalysis(deanalysis_script, metadata_join.out, file_join.out)
-  
+
 workflow {
   file_join(join_table, metadata, data_config, file_channels, params.count_files)
   metadata_join(metadata2table, metadata, meta_data_config, params.count_files)
+  deanalysis(deanalysis_script, metadata_join.out, file_join.out)
+  summarize(summarizer_script, deanalysis.out, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
   kpm_analysis(kpm_script, file_join.out, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
 }

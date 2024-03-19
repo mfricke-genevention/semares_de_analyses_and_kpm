@@ -1,29 +1,29 @@
 {
     "file_name": "metadata.tsv",
-    "sep": "\t",
+    "sep": ",",
     "quotechar": "",
-    "output": "./output/",
+    "output": "./transformed_input/",
     "columns": [
         {
             "field": [
                 "name"
             ],
             "object_type": "sample",
-            "header_name": "Sample_name"
+            "header_name": "Label"
         },
         {
             "field": [
                 "name"
             ],
             "object_type": "sample",
-            "header_name": "Column_name"
+            "header_name": "Column"
         },        
         {
             "field": [
                 "identifier"
             ],
             "object_type": "individual",
-            "header_name": "ID"
+            "header_name": "Animal"
         },
         {
             "field": [
