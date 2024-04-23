@@ -21,6 +21,8 @@ network_file = Channel.fromPath("${projectDir}/network.sif")
 deanalysis_script = Channel.fromPath("${projectDir}/docker_deanalysis/DEAnalysis.R")
 summarizer_script = Channel.fromPath("${projectDir}/docker_deanalysis/Summarizer.R")
 kpm_script = Channel.fromPath("${projectDir}/docker_kpm/KPMAnalysis.R")
+go_enrichment_script = Channel.fromPath("${projectDir}/docker_geoenrichment/GOEnrichment.R")
+network_enrichment_script = Channel.fromPath("${projectDir}/docker_networkenrichment/NetworkEnrichment.R")
 join_table = Channel.fromPath("${projectDir}/semares_preprocessing/join_table.py")
 metadata2table = Channel.fromPath("${projectDir}/semares_preprocessing/metadata2table.py")
 
@@ -130,6 +132,51 @@ process kpm_analysis {
     """
 }
 
+process go_enrichment {
+    container "kadam0/goenrichment:0.0.2" // use docker conatainer
+    publishDir params.output, mode: "copy"
+
+    input:
+    path go_enrichment_script
+    path count_file
+    path meta_file
+    path network_file
+    val logFC
+    val logFC_up
+    val logFC_down
+    val p_adj
+    val alpha
+
+    output:
+    path("go_enrichment_out", type:"dir")
+
+    """
+    Rscript $go_enrichment_script --meta_file ${meta_file} --count_file ${count_file} --network_file ${network_file} --out_dir ./go_enrichment_out --logFC ${logFC} --logFC_up ${logFC_up} --logFC_down ${logFC_down} --p_adj ${p_adj} --alpha ${alpha}
+    """
+}
+
+process  network_enrichment {
+    container "kadam0/netenrichment:0.0.2" // use docker conatainer
+    publishDir params.output, mode: "copy"
+
+    input:
+    path network_enrichment_script
+    path count_file
+    path meta_file
+    path network_file
+    val logFC
+    val logFC_up
+    val logFC_down
+    val p_adj
+    val alpha
+
+    output:
+    path("network_enrichment_out", type:"dir")
+
+    """
+    Rscript $network_enrichment_script --meta_file ${meta_file} --count_file ${count_file} --network_file ${network_file} --out_dir ./network_enrichment_out --logFC ${logFC} --logFC_up ${logFC_up} --logFC_down ${logFC_down} --p_adj ${p_adj} --alpha ${alpha}
+    """
+}
 
 workflow {
   file_join(join_table, metadata, data_config, file_channels, params.count_files)
@@ -137,4 +184,6 @@ workflow {
   deanalysis(deanalysis_script, metadata_join.out, file_join.out)
   summarize(summarizer_script, deanalysis.out, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
   kpm_analysis(kpm_script, file_join.out, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
+  go_enrichment(kpm_script, file_join.out, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
+  network_enrichment(kpm_script, file_join.out, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
 }
