@@ -9,3 +9,9 @@
 [submodule "docker_kpm"]
 	path = docker_kpm
 	url = https://github.com/symbod/docker_kpm
+[submodule "docker_networkenrichment"]
+	path = docker_networkenrichment
+	url = https://github.com/symbod/docker_networkenrichment
+[submodule "docker_goenrichment"]
+	path = docker_goenrichment
+	url = https://github.com/symbod/docker_goenrichment
