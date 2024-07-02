@@ -200,7 +200,7 @@ process go_enrichment {
     path("go_enrichment_out", type:"dir")
 
     """
-    Rscript $go_enrichment_script --meta_file ${meta_file} --count_file ${count_file} --network_file ${network_file} --out_dir ./go_enrichment_out --logFC ${logFC} --logFC_up ${logFC_up} --logFC_down ${logFC_down} --p_adj ${p_adj} --alpha ${alpha} --gene_column ${gene_column} --organism ${organism}
+    Rscript $go_enrichment_script --meta_file ${meta_file} --count_file ${count_file} --out_dir ./go_enrichment_out --logFC ${logFC} --logFC_up ${logFC_up} --logFC_down ${logFC_down} --p_adj ${p_adj} --alpha ${alpha} --gene_column ${gene_column} --organism ${organism}
     """
 }
 
