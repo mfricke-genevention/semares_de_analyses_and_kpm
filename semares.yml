@@ -25,3 +25,45 @@ pipelines:
     paramType: InputPath
     isMultiValue: false
     isRequired: true
+
+  - paramName: Threshold for adjusted p-values or p-values
+    paramDescription: Threshold for adjusted p-values or p-values
+    paramKey: --alpha
+    paramType: Number
+    isMultiValue: false
+    isRequired: false
+
+  - paramName: Organsim
+    paramDescription: Organsim of genes in gene column ('human' or 'rat').
+    paramKey: --organism
+    paramType: Text
+    isMultiValue: false
+    isRequired: false
+
+  - paramName: Differential Expression
+    paramDescription:  Apply differential Expression Analysis.
+    paramKey: --de_analysis
+    paramType: Boolean
+    isMultiValue: false
+    isRequired: false
+
+  - paramName: Key Pathway Miner
+    paramDescription:  Apply Key Pathway Miner Analysis.
+    paramKey: --kpm_analysis
+    paramType: Boolean
+    isMultiValue: false
+    isRequired: false
+
+  - paramName: GO Enrichment
+    paramDescription:  Apply GO Enrichment Analysis.
+    paramKey: --go_enrichment
+    paramType: Boolean
+    isMultiValue: false
+    isRequired: false
+
+  - paramName: Network Enrichment and Drug Repurposing
+    paramDescription:  Apply Network Enrichment and Drug Repurposing Analysis.
+    paramKey: --network_enrichment
+    paramType: Boolean
+    isMultiValue: false
+    isRequired: false
