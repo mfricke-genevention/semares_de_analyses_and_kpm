@@ -180,7 +180,7 @@ process kpm_analysis {
 }
 
 process go_enrichment {
-    container "kadam0/goenrichment:0.0.3" // use docker conatainer
+    container "kadam0/goenrichment:0.0.2" // use docker conatainer
     publishDir params.output, mode: "copy"
 
     input:
