@@ -12,6 +12,7 @@
     "join": {
         "columns": [
             "Protein.IDs",
+            "Protein IDs",
             "IDs"
         ],
         "name": "Protein.IDs"
