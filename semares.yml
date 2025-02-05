@@ -35,7 +35,7 @@ pipelines:
     isRequired: false
 
   - paramName: Organsim
-    paramDescription: Organsim of genes in gene column ('human' or 'rat').
+    paramDescription: "Organsim of genes in gene column ('human' or 'rat')."
     paramKey: --organism
     paramType: Text
     isMultiValue: false
