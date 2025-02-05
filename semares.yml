@@ -3,7 +3,7 @@ pipelines:
   pipelineDescription: "Differential protein expression analysis and KPM analysis. Given a biological network and a set of case-control studies, KeyPathwayMiner efficiently extracts all maximal connected sub-networks. These sub-networks contain the entities that are mainly dysregulated, e.g., differentially expressed, in most cases studied."
   pipelinePath: $PIPELINE_PATH/main.nf
   pipelineCommand: nextflow run
-  pipelineVersion: "1.1.0"
+  pipelineVersion: "1.2.0"
 
   pipelineParams:
   - paramName: Output Folder Path
@@ -34,8 +34,8 @@ pipelines:
     isMultiValue: false
     isRequired: false
 
-  - paramName: Organsim
-    paramDescription: Organsim of genes in gene column ('human' or 'rat').
+  - paramName: Organism
+    paramDescription: "Organism of genes in gene column ('human' or 'rat')."
     paramKey: --organism
     paramType: Text
     isMultiValue: false
