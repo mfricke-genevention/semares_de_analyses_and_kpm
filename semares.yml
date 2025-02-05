@@ -1,6 +1,7 @@
 pipelines:
 - pipelineName: de_analysis_repository_based
   pipelineDescription: "Differential protein expression analysis and KPM analysis. Given a biological network and a set of case-control studies, KeyPathwayMiner efficiently extracts all maximal connected sub-networks. These sub-networks contain the entities that are mainly dysregulated, e.g., differentially expressed, in most cases studied."
+  pipelinePath: $PIPELINE_PATH/main.nf
   pipelineCommand: nextflow run
   pipelineVersion: "1.1.0"
 
