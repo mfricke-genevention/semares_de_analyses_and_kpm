@@ -11,6 +11,7 @@
     },
     "join": {
         "columns": [
+            "Protein.Ids",
             "Protein.IDs",
             "Protein IDs",
             "IDs"
