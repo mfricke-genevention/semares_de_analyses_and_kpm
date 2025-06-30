@@ -8,11 +8,11 @@ def option_parser():
     parser.add_argument('--config', "-m",
                         help='metadata json config file', dest="config")
     parser.add_argument('--condition_1', "-a",
-                        help='condition 1, format e.g. sample:name', dest="condition_1")
+                        help='condition 1, format e.g. sample:name', dest="condition_1", default="default")
     parser.add_argument('--condition_2', "-b",
-                        help='condition 2, format e.g. sample:name', dest="condition_2")
+                        help='condition 2, format e.g. sample:name', dest="condition_2", default="default")
     parser.add_argument('--condition_3', "-c",
-                        help='condition 3, format e.g. sample:name', dest="condition_3")
+                        help='condition 3, format e.g. sample:name', dest="condition_3", default="default")
 
     args = parser.parse_args()
 
@@ -45,19 +45,21 @@ def get_field(condition, header_name):
         }
     else:
         raise ValueError(
-            "Condition needs to have the format object_type:field_name")
+            "Condition needs to have the format field_name@object_type")
 
 
 def main():
     args = option_parser()
     json_dict = json.load(open(args.config))
     columns = json_dict.get("columns")
+
     if args.condition_1 != "default":
         columns[3] = get_field(args.condition_1, columns[3].get("header_name"))
     if args.condition_2 != "default":
         columns[4] = get_field(args.condition_2, columns[4].get("header_name"))
     if args.condition_3 != "default":
         columns[5] = get_field(args.condition_3, columns[5].get("header_name"))
+    json_dict["columns"] = columns
     json.dump(json_dict, open("meta_table_config_changed.json", "w"), indent=2)
 
 

@@ -4,7 +4,7 @@ pipelines:
   pipelineDescription: "Differential protein expression analysis and KPM analysis. Given a biological network and a set of case-control studies, KeyPathwayMiner efficiently extracts all maximal connected sub-networks. These sub-networks contain the entities that are mainly dysregulated, e.g., differentially expressed, in most cases studied."
   pipelinePath: $PIPELINE_PATH/main.nf
   pipelineCommand: nextflow run
-  pipelineVersion: "1.3.0"
+  pipelineVersion: "1.4.0"
 
   pipelineParams:
   - paramName: Output Folder Path
@@ -43,21 +43,21 @@ pipelines:
     isRequired: false
 
   - paramName: Condition 1
-    paramDescription: Set to 'default' if you don't want to change the default (timepoint)
+    paramDescription: Keep field empty to set the default (timepoint)
     paramKey: --condition_1
     paramType: Text
     isMultiValue: true
     isRequired: false
 
   - paramName: Condition 2
-    paramDescription: Set to 'default' if you don't want to change the default (strain)
+    paramDescription: Keep field empty to set the default (strain)
     paramKey: --condition_2
     paramType: Text
     isMultiValue: true
     isRequired: false
 
   - paramName: Condition 3
-    paramDescription: Set to 'default' if you don't want to change the default (location)
+    paramDescription: Keep field empty to set the default (location)
     paramKey: --condition_3
     paramType: Text
     isMultiValue: true
