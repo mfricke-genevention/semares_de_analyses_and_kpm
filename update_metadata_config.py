@@ -58,7 +58,7 @@ def main():
         columns[4] = get_field(args.condition_2, columns[4].get("header_name"))
     if args.condition_3 != "default":
         columns[5] = get_field(args.condition_3, columns[5].get("header_name"))
-    json.dump(json_dict, open("meta_table_config.json", "w"), indent=2)
+    json.dump(json_dict, open("meta_table_config_changed.json", "w"), indent=2)
 
 
 if __name__ == "__main__":

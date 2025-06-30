@@ -27,21 +27,23 @@
     },
     {
       "field": [
-        "organism"
+        "timepoints",
+        "$TIMEPOINT",
+        "timepoint_termId"
       ],
-      "object_type": "cohort",
+      "object_type": "individual",
       "header_name": "Timepoint"
     },
     {
       "field": [
-        "gender"
+        "strain"
       ],
       "object_type": "individual",
       "header_name": "Condition"
     },
     {
       "field": [
-        "name"
+        "sampling-site"
       ],
       "object_type": "sample",
       "header_name": "Location"

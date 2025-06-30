@@ -89,7 +89,7 @@ process metadata_join {
 
     """
     python $update_metadata_config_script -a $params.condition_1 -b $params.condition_2 -c $params.condition_3 -m $config
-    python $script -m $metadata -c ./meta_table_config.json  -p $file_path
+    python $script -m $metadata -c ./meta_table_config_changed.json  -p $file_path
     """
 }
 
