@@ -24,10 +24,10 @@ def option_parser():
 
 
 def get_field(condition, header_name):
-    tmp = condition.split(":")
+    tmp = condition.split("@")
     if len(tmp) == 2:
-        object_type = tmp[0]
-        field_name = tmp[1]
+        object_type = tmp[1]
+        field_name = tmp[0]
         field = [
             field_name
         ]
