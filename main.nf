@@ -20,6 +20,9 @@ params.network_enrichment = true
 
 params.file_type = "png"
 params.protein_column = "Protein.IDs"
+params.condition_1 = "default"
+params.condition_2 = "default"
+params.condition_3 = "default"
 params.rev_con = false
 params.reviewed = false
 params.mode = "uniprot_one"
@@ -42,6 +45,7 @@ go_enrichment_script = Channel.fromPath("${projectDir}/docker_goenrichment/GOEnr
 network_enrichment_script = Channel.fromPath("${projectDir}/docker_networkenrichment/NetworkEnrichment.R")
 join_table = Channel.fromPath("${projectDir}/semares_preprocessing/join_table.py")
 metadata2table = Channel.fromPath("${projectDir}/semares_preprocessing/metadata2table.py")
+update_metadata_config = Channel.fromPath("${projectDir}/update_metadata_config.py")
 proharmed_script = Channel.fromPath("${projectDir}/docker_proharmed/ProHarMeD.R")
 proharmed_config_script = Channel.fromPath("${projectDir}/docker_proharmed/config.R")
 
@@ -75,6 +79,7 @@ process metadata_join {
 
     input:
     path script
+    path update_metadata_config_script
     path metadata
     path config
     val file_path
@@ -83,7 +88,8 @@ process metadata_join {
     path "transformed_input/metadata.tsv"
 
     """
-    python $script -m $metadata -c $config -p $file_path
+    python $update_metadata_config_script -a $params.condition_1 -b $params.condition_2 -c $params.condition_3 -m $config
+    python $script -m $metadata -c ./meta_table_config.json  -p $file_path
     """
 }
 
@@ -230,7 +236,7 @@ process  network_enrichment {
 
 workflow {
   file_join(join_table, metadata, data_config, file_channels, params.count_files)
-  metadata_join(metadata2table, metadata, meta_data_config, params.count_files)
+  metadata_join(metadata2table, update_metadata_config, metadata, meta_data_config, params.count_files)
   proharmed(proharmed_script, proharmed_config_script, file_join.out, params.file_type, params.protein_column, params.organism, params.rev_con, params.reviewed, params.mode, params.skip_filled, params.tar_organism)
 
   if( params.de_analysis ){

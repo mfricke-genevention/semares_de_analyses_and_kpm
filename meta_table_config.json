@@ -27,23 +27,23 @@
     },
     {
       "field": [
-        "organism"
+        "bla"
       ],
-      "object_type": "cohort",
+      "object_type": "sample",
       "header_name": "Timepoint"
     },
     {
       "field": [
-        "gender"
+        "bli"
       ],
       "object_type": "individual",
       "header_name": "Condition"
     },
     {
       "field": [
-        "name"
+        "blub"
       ],
-      "object_type": "sample",
+      "object_type": "individual",
       "header_name": "Location"
     }
   ]
