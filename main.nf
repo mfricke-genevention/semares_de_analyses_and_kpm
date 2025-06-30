@@ -20,9 +20,9 @@ params.network_enrichment = true
 
 params.file_type = "png"
 params.protein_column = "Protein.IDs"
-params.condition_1 = ""
-params.condition_2 = ""
-params.condition_3 = ""
+params.condition_1 = "default"
+params.condition_2 = "default"
+params.condition_3 = "default"
 params.rev_con = false
 params.reviewed = false
 params.mode = "uniprot_one"
@@ -237,16 +237,16 @@ process  network_enrichment {
 workflow {
   file_join(join_table, metadata, data_config, file_channels, params.count_files)
   metadata_join(metadata2table, update_metadata_config, metadata, meta_data_config, params.count_files)
-//   proharmed(proharmed_script, proharmed_config_script, file_join.out, params.file_type, params.protein_column, params.organism, params.rev_con, params.reviewed, params.mode, params.skip_filled, params.tar_organism)
+  proharmed(proharmed_script, proharmed_config_script, file_join.out, params.file_type, params.protein_column, params.organism, params.rev_con, params.reviewed, params.mode, params.skip_filled, params.tar_organism)
 
-//   if( params.de_analysis ){
-//     deanalysis(deanalysis_script, metadata_join.out, file_join.out)
-//     summarize(summarizer_script, deanalysis.out, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
-//   }
-//   if( params.kpm_analysis )
-//     kpm_analysis(kpm_script, file_join.out, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
-//   if( params.go_enrichment )
-//     go_enrichment(go_enrichment_script, proharmed.out.harmonized_data, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha, params.gene_column, params.organism)
-//   if( params.network_enrichment )
-//     network_enrichment(network_enrichment_script, proharmed.out.harmonized_data, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha, params.gene_column)
+  if( params.de_analysis ){
+    deanalysis(deanalysis_script, metadata_join.out, file_join.out)
+    summarize(summarizer_script, deanalysis.out, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
+  }
+  if( params.kpm_analysis )
+    kpm_analysis(kpm_script, file_join.out, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha)
+  if( params.go_enrichment )
+    go_enrichment(go_enrichment_script, proharmed.out.harmonized_data, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha, params.gene_column, params.organism)
+  if( params.network_enrichment )
+    network_enrichment(network_enrichment_script, proharmed.out.harmonized_data, metadata_join.out, network_file, params.logFC, params.logFC_up, params.logFC_down, params.p_adj, params.alpha, params.gene_column)
 }

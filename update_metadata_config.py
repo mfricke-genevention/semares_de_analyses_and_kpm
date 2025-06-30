@@ -8,11 +8,14 @@ def option_parser():
     parser.add_argument('--config', "-m",
                         help='metadata json config file', dest="config")
     parser.add_argument('--condition_1', "-a",
-                        help='condition 1, format e.g. sample:name', dest="condition_1", default="default")
+                        help='condition 1, format e.g. name@sample', dest="condition_1", 
+                        default="default", nargs='?')
     parser.add_argument('--condition_2', "-b",
-                        help='condition 2, format e.g. sample:name', dest="condition_2", default="default")
+                        help='condition 2, format e.g. name@sample', dest="condition_2", default="default",
+                        nargs='?')
     parser.add_argument('--condition_3', "-c",
-                        help='condition 3, format e.g. sample:name', dest="condition_3", default="default")
+                        help='condition 3, format e.g. name@sample', dest="condition_3", default="default",
+                        nargs='?')
 
     args = parser.parse_args()
 
